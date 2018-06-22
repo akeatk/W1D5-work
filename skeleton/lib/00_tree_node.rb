@@ -20,10 +20,7 @@ class PolyTreeNode
   def parent=(node)
     parent.children.delete(self) if parent != nil
     @parent = node
-    return nil if node == nil
-    unless node.children.include?(self)
-      node.children << self
-    end
+    node.children << self unless node == nil || node.children.include?(self)
   end
 
   def add_child(child_node)
@@ -51,6 +48,17 @@ class PolyTreeNode
       current_nodes += current_nodes.shift.children
     end
     nil
+  end
+
+  def traverse
+    current_nodes = [self]
+    i = 1
+    until current_nodes.empty?
+      print current_nodes[0].value
+      puts i
+      i += 1
+      current_nodes += current_nodes.shift.children
+    end
   end
 
 end
